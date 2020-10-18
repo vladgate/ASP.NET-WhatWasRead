@@ -1,0 +1,14 @@
+﻿@model CreateEditBookViewModel
+
+@{
+    ViewBag.Title = "Книги: редактирование";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<h2 style="margin-left: 10px">Редактирование информации о книге</h2>
+
+@using (Html.BeginForm("Edit", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_CreateEditBook", Model)
+}

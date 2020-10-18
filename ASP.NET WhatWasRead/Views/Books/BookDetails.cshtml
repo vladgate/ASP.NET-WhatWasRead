@@ -1,0 +1,67 @@
+﻿@model Domain.Concrete.EF.Book
+
+@{
+    ViewBag.Title = "Книги: подробно";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BookDetails</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pages)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pages)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.NameForLabels)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.NameForLabels)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language.NameForLabels)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language.NameForLabels)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", "Books", new { id = Model.BookId }, null) |
+    @Html.ActionLink("Back to List", "List")
+</p>

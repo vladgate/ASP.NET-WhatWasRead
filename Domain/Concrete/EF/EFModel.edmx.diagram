@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="06f174998ae94380859d86be86902a38" Name="Diagram1">
+        <EntityTypeShape EntityType="WhatWasReadModels.Author" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatWasReadModels.Book" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatWasReadModels.Category" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatWasReadModels.Filter" Width="1.5" PointX="5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatWasReadModels.FilterTarget" Width="1.5" PointX="2.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatWasReadModels.Language" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatWasReadModels.Tag" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="WhatWasReadModels.FK_Books_Categories_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatWasReadModels.FK_Books_Languages_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatWasReadModels.FK_Filters_FilterTargets_FilterTargetId" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatWasReadModels.AuthorsOfBooks" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatWasReadModels.BookTags" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WhatWasReadModels.BooksWithAuthor" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

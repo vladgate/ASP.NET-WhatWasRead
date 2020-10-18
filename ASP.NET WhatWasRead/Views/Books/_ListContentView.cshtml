@@ -1,0 +1,55 @@
+﻿@using System.Text;
+@using ASP.NET_WhatWasRead.HtmlHelpers
+@model BooksListViewModel
+
+<div id="center">
+    @Html.Action("ListOfCategories", "Navigation", new { currentCategory = Model.CurrentCategory, currentTag = Model.CurrentTag, minPages = ViewBag.MinPagesActual, maxPages = ViewBag.MaxPagesActual }) @*//слева список категорий*@
+    <div id="right-panel">
+        <div id="books-list-wrapper">
+            @if (Model.Books.Count()>0)
+            {
+                @Html.Partial("_BookRowsPartialView", Model.Books)
+            }
+            else
+            {
+                @Html.Partial("_NoResultPartialView")
+            }
+        </div>
+
+        <div class="bottom-paging-wrapper">
+            <div class="bottom-paging">
+                @if (Model.CurrentCategory == null)
+                {
+                   for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                   {
+                      string url = Url.RouteUrl("PageRoute", new { controller = "Books", action = "List", page = i, tag = Model.CurrentTag });
+                      if (Request.QueryString.Count != 0 && !(Request.QueryString.Count == 1 && (Request.QueryString.AllKeys[0] == "tag" || Request.QueryString.AllKeys[0] == "page") || Request.QueryString.AllKeys[0] == "category"))
+                      {
+                         //bool b;
+                         //url = Html.CreateFilterPartOfLink(Request.Path, Request.QueryString, "page", i.ToString(), out b);
+                         url += Helper.BuildQueryString(Request.QueryString);
+                      }
+                        <a href="@url" class="@(i == Model.PagingInfo.CurrentPage ? "page-link selected" : "page-link")">@i.ToString()</a>
+                   }
+                }
+                else
+                {
+                   for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                   {
+                      string url = Url.RouteUrl("CategoryPageRoute", new { controller = "Books", action = "List", page = i, category = Model.CurrentCategory, tag = Model.CurrentTag });
+                      if (Request.QueryString.Count != 0 && !(Request.QueryString.Count == 1 && (Request.QueryString.AllKeys[0] == "tag" || Request.QueryString.AllKeys[0] == "page") || Request.QueryString.AllKeys[0] == "category"))
+                      {
+                         url += Helper.BuildQueryString(Request.QueryString);
+                      }
+
+                        <a href="@url" class="@(i == Model.PagingInfo.CurrentPage ? "page-link selected" : "page-link")">@i.ToString()</a>
+                    }
+                }
+            </div>
+            <div class="btn-placeholder">
+                <button id="btn-load-more" class="btn btn-success" type="button" @(Model.PagingInfo.TotalPages == 0 || Model.PagingInfo.TotalPages == Model.PagingInfo.CurrentPage ? "disabled" : "")>Показать еще</button>
+            </div>
+        </div>
+    </div>
+</div>
+

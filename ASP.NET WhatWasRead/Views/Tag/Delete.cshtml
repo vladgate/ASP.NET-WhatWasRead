@@ -1,0 +1,40 @@
+﻿@model Domain.Concrete.EF.Tag
+
+@{
+    ViewBag.Title = "Теги: удаление";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="margin-left: 10px">Удалить тег</h2>
+
+<h3 style="margin-left: 10px">Вы точно хотите удалить этот тег?</h3>
+<div style="margin-left: 10px">
+    <h4 style="margin-left: 10px">Тег</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.NameForLabels, "Название для пользователя:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameForLabels)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.NameForLinks, "Название для ссылки:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameForLinks)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку тегов", "Index")
+        </div>
+    }
+</div>

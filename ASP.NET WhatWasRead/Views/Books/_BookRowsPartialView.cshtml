@@ -1,0 +1,52 @@
+﻿@using Domain.Concrete.EF;
+@using ASP.NET_WhatWasRead.Infrastructure;
+
+@model IEnumerable<Book>
+
+@{IEnumerator<Book> enumerator = Model.GetEnumerator(); }
+@while(enumerator.MoveNext())
+{
+    int booksInRowCount = 0;
+    Book currentBook = enumerator.Current;
+    <div class="row-books">
+        @while (true)
+        {
+            @ImgAndAbout(currentBook);
+            booksInRowCount++;
+            if (booksInRowCount % Globals.ITEMS_PER_BOOKROW == 0)
+            {
+                break; //start new booksRow
+            }
+            else
+            {
+                if (enumerator.MoveNext()) // go to next element
+                {
+                    currentBook = enumerator.Current;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    </div>
+}
+
+@helper ImgAndAbout(Book book)
+{
+    <div class="img-and-about">
+        <div class="book-img">
+            <img src="@(book.ImageData == null ? @"\Images\no_image.png" : Url.Action("GetImage", "Books", new { id = book.BookId }) )" alt="@book.Name" />
+        </div>
+        <div class="book-name">
+            <p>@book.Name</p>
+        </div>
+        <div class="book-authors">
+            <p>@((book.Authors.Count == 1 ? "Автор: " : "Авторы: ") + @book.DisplayAuthors())</p>
+        </div>
+        <div class="book-details">
+            <a href="@Url.RouteUrl("BooksIdAction", new { id = book.BookId, action = "Details" })">Подробнее</a>
+        </div>
+    </div>
+}
+

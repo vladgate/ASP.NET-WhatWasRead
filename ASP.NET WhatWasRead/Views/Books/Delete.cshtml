@@ -1,0 +1,75 @@
+﻿@model Domain.Concrete.EF.Book
+
+@{
+    ViewBag.Title = "Книги: удаление";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="margin-left: 10px">Удаление</h2>
+
+<h3 style="margin-left: 10px">Вы точно хотите удалить данные о книге?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="dt-label" style="text-align: left">
+            @Html.LabelFor(model => model.Name, "Название:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt class="dt-label" style="text-align: left">
+            @Html.LabelFor(model => model.Authors, Model.Authors.Count > 1 ? "Авторы:" : "Автор:")
+        </dt>
+        <dd>
+            @Model.DisplayAuthors()
+        </dd>
+
+        <dt class="dt-label" style="text-align: left">
+            @Html.LabelFor(model => model.Pages, "Количество страниц:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pages)
+        </dd>
+
+        <dt class="dt-label" style="text-align: left">
+            @Html.LabelFor(model => model.Description, "Описание:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt class="dt-label" style="text-align: left">
+            @Html.LabelFor(model => model.Year, "Год издания:")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt class="dt-label" style="text-align: left">
+            @Html.LabelFor(model => model.Category.NameForLabels, "Категория:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.NameForLabels)
+        </dd>
+
+        <dt class="dt-label" style="text-align: left">
+            @Html.LabelFor(model => model.Language.NameForLabels, "Язык:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language.NameForLabels)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color col-md-offset-2" >
+            <input type="submit" value="Удалить" class="btn btn-warning" />
+        </div>
+    }
+</div>
