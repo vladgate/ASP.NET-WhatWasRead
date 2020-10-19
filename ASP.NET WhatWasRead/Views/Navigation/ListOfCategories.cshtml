@@ -3,67 +3,75 @@
 
 @model NavigationViewModel
 
-<div id="left-panel">
-    <h3>Категории книг</h3>
-    <ul id="list">
-        @foreach (Category categ in Model.Categories)
-        {
+   <div id="left-panel">
+      <h3>Категории книг</h3>
+      <ul id="list">
+         @foreach (Category categ in Model.Categories)
+         {
             <li @(categ.NameForLinks == Model.CurrentCategory ? "class=li-selected" : "") data-target="@categ.NameForLinks">
-                @Html.RouteLink(categ.NameForLabels, "CategoryPageRoute", new { controller = "Books", action = "List", category = categ.NameForLinks, page = 1 })
+               @Html.RouteLink(categ.NameForLabels, "CategoryPageRoute", new { controller = "Books", action = "List", category = categ.NameForLinks, page = 1 })
             </li>
-        }
-    </ul>
-    <h3>Фильтр</h3>
-    <span class="filter-span">
-        Язык:
-    </span>
-    <ul class="filter-ul" id="filter-lang" data-target="@Model.LanguageQueryWord">
-        @foreach (Language lang in Model.Languages)
-        {
+         }
+      </ul>
+      <h3>Фильтр</h3>
+      <span class="filter-span">
+         Язык:
+      </span>
+      <ul class="filter-ul" id="filter-lang" data-target="@Model.LanguageQueryWord">
+         @foreach (Language lang in Model.Languages)
+         {
             <li class="filter-li">
-                @{bool checked1; }
-                <a class="a-checkbox-filter" href="@Html.CreateFilterPartOfLink(Request.Path, Request.QueryString, Model.LanguageQueryWord, lang.NameForLinks, out checked1)">
-                    <input class="filter-checkbox" type="checkbox" id="@lang.NameForLinks" @(checked1 ? "checked" : "") />
-                    <label class="filter-label">@lang.NameForLabels</label>
-                </a>
+               @{bool checked1; }
+               <a class="a-checkbox-filter" href="@Html.CreateFilterPartOfLink(Request.Path, Request.QueryString, Model.LanguageQueryWord, lang.NameForLinks, out checked1)">
+                  <input class="filter-checkbox" type="checkbox" id="@lang.NameForLinks" @(checked1 ? "checked" : "") />
+                  <label class="filter-label">@lang.NameForLabels</label>
+               </a>
             </li>
-                    }
-    </ul>
+         }
+      </ul>
 
-    <span class="filter-span">
-        Автор:
-    </span>
-    <ul class="filter-ul" id="filter-author" data-target="@Model.AuthorQueryWord">
-        @foreach (Author author in Model.Authors)
-        {
+      <span class="filter-span">
+         Автор:
+      </span>
+      <ul class="filter-ul" id="filter-author" data-target="@Model.AuthorQueryWord">
+         @foreach (Author author in Model.Authors)
+         {
             <li class="filter-li">
-                @{bool checked2; }
-                <a class="a-checkbox-filter" href="@Html.CreateFilterPartOfLink(Request.Path, Request.QueryString, Model.AuthorQueryWord, author.AuthorId.ToString(), out checked2)">
-                    <input class="filter-checkbox" type="checkbox" id="@author.AuthorId" @(checked2 ? "checked" : "") />
-                    <label class="filter-label">@author.DisplayText</label>
-                </a>
+               @{bool checked2; }
+               <a class="a-checkbox-filter" href="@Html.CreateFilterPartOfLink(Request.Path, Request.QueryString, Model.AuthorQueryWord, author.AuthorId.ToString(), out checked2)">
+                  <input class="filter-checkbox" type="checkbox" id="@author.AuthorId" @(checked2 ? "checked" : "") />
+                  <label class="filter-label">@author.DisplayText</label>
+               </a>
             </li>
-                    }
-    </ul>
+         }
+      </ul>
 
-    <div id="filter-pages" data-target="@Model.PagesQueryWord" data-min="@Model.MinPagesExpected" data-max="@Model.MaxPagesExpected">
-        <span class="filter-span">
+      <div id="filter-pages" data-target="@Model.PagesQueryWord" data-min="@Model.MinPagesExpected" data-max="@Model.MaxPagesExpected">
+         <span class="filter-span">
             Количество страниц:
-        </span>
-        <p>
+         </span>
+         <p>
             <span> от: </span><input class="filter-page-count" id="min-pages" type="text" value="@(Model.MinPagesActual)" />
             <span> до: </span><input class="filter-page-count" id="max-pages" type="text" value="@(Model.MaxPagesActual)" />
-        </p>
-    </div>
+         </p>
+      </div>
 
-    <div class="btn-placeholder">
-        <input id="filter-apply-btn" type="button" value="Применить фильтр" />
-    </div>
-    <div>
-        <p class="tag-header">Поиск по тегу:</p>
-        @foreach (Tag tag in Model.Tags)
-        {
+      <div class="btn-placeholder">
+         <input id="filter-apply-btn" type="button" value="Применить фильтр" />
+      </div>
+
+      @using (Html.BeginForm("List", "Books", FormMethod.Get))
+      {
+         <div class="btn-placeholder">
+            <input id="filter-apply-btn" type="submit" value="Сбросить фильтр" />
+         </div>
+      }
+
+      <div>
+         <p class="tag-header">Поиск по тегу:</p>
+         @foreach (Tag tag in Model.Tags)
+         {
             <span class="@(tag.NameForLinks == Model.CurrentTag? "tag-span selected" : "tag-span")" data-target="@tag.NameForLinks">@Html.ActionLink(tag.NameForLabels, "List", "Books", new { tag = tag.NameForLinks }, null)</span>
-        }
-    </div>
-</div>
+         }
+      </div>
+   </div>

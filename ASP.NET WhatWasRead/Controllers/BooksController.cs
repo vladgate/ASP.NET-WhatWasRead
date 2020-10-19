@@ -156,7 +156,10 @@ namespace ASP.NET_WhatWasRead.Controllers
             viewModel.CurrentCategory = currentCategory.NameForLinks;
             viewModel.CurrentTag = null;
          }
-
+         if (requestManager.IsAjaxRequest(this))
+         {
+            return PartialView("_ListContentView", viewModel);
+         }
          return View(viewModel);
       }
 
