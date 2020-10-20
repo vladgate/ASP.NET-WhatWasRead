@@ -25,7 +25,6 @@ namespace Domain.Concrete.EF
         public string FilterTargetSchema { get; set; }
         public string ControllerName { get; set; }
         public string ActionName { get; set; }
-        public string FilterName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Filter> Filters { get; set; }

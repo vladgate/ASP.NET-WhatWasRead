@@ -71,7 +71,6 @@
           <Property Name="FilterTargetSchema" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ControllerName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ActionName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="FilterName" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Languages">
           <Key>
@@ -338,7 +337,6 @@ warning 6002: The table/view 'D:\DATABASES\WHATWASREAD\WHATWASREAD.MDF.dbo.Books
           <Property Name="FilterTargetSchema" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FilterName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Filters" Relationship="Self.FK_Filters_FilterTargets_FilterTargetId" FromRole="FilterTargets" ToRole="Filters" />
         </EntityType>
         <EntityType Name="Language">
@@ -527,7 +525,6 @@ warning 6002: The table/view 'D:\DATABASES\WHATWASREAD\WHATWASREAD.MDF.dbo.Books
                 <ScalarProperty Name="FilterTargetSchema" ColumnName="FilterTargetSchema" />
                 <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
                 <ScalarProperty Name="ActionName" ColumnName="ActionName" />
-                <ScalarProperty Name="FilterName" ColumnName="FilterName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

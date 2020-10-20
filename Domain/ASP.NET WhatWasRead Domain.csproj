@@ -91,6 +91,7 @@
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\Book.cs" />
     <Compile Include="Concrete\Author.cs" />
+    <Compile Include="Concrete\WhatWasReadContextInitializer.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
     <Compile Include="Concrete\EF\Author.cs">
       <DependentUpon>EFModel.tt</DependentUpon>
@@ -145,6 +146,7 @@
       <DependentUpon>EFModel.edmx</DependentUpon>
       <LastGenOutput>EFModel.cs</LastGenOutput>
     </Content>
+    <Content Include="generate_schema.sql" />
     <Content Include="insert_mydata_script.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +159,7 @@
       <DependentUpon>EFModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <Compile Include="WhatWasReadContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
