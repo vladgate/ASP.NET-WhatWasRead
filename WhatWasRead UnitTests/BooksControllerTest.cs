@@ -541,7 +541,7 @@ namespace My_Progress_UnitTests
       }
 
       [Test]
-      public void List_DefaultParameters_ReturnsCorrectOrderOfBooks()
+      public void List_DefaultParametersWhenNotAjaxRequest_ReturnsCorrectOrderOfBooks()
       {
          //Arrange
          Mock<IRepository> mockRepo = new Mock<IRepository>();
@@ -563,9 +563,34 @@ namespace My_Progress_UnitTests
          Assert.AreSame(books[2], booksResult[2]);
          Assert.AreSame(books[1], booksResult[3]);
       }
+      [Test]
+      public void List_DefaultParametersWhenAjaxRequest_ReturnsCorrectOrderOfBooks()
+      {
+         //Arrange
+         Mock<IRepository> mockRepo = new Mock<IRepository>();
+         Book[] books = CreateBooks();
+         mockRepo.Setup(m => m.Books).Returns(books);
+         BooksController target = new BooksController(mockRepo.Object);
+         Mock<IBooksRequestManager> mockRequestManager = new Mock<IBooksRequestManager>();
+         NameValueCollection emptyCollection = new System.Collections.Specialized.NameValueCollection();
+         mockRequestManager.Setup(m => m.GetQueryString(It.IsAny<BooksController>())).Returns(emptyCollection);
+         mockRequestManager.Setup(m => m.IsAjaxRequest(It.IsAny<BooksController>())).Returns(true);
+         target.BooksRequestManager = mockRequestManager.Object;
+         //Act
+         ActionResult result = target.List();
+         BooksListViewModel model = ((PartialViewResult)result).Model as BooksListViewModel;
+         Book[] booksResult = model.Books.ToArray();
+         //Assert
+         Assert.IsInstanceOf<PartialViewResult>(result);
+         Assert.AreSame(books[4], booksResult[0]);
+         Assert.AreSame(books[3], booksResult[1]);
+         Assert.AreSame(books[2], booksResult[2]);
+         Assert.AreSame(books[1], booksResult[3]);
+      }
+
 
       [Test]
-      public void List_InValidCategory_ReturnsNotFoundView()
+      public void List_InvalidCategory_ReturnsNotFoundView()
       {
          //Arrange
          Mock<IRepository> mockRepo = new Mock<IRepository>();
@@ -690,7 +715,7 @@ namespace My_Progress_UnitTests
       }
 
       [Test]
-      public void List_InValidTag_ReturnsNotFoundView()
+      public void List_InvalidTag_ReturnsNotFoundView()
       {
          //Arrange
          Mock<IRepository> mockRepo = new Mock<IRepository>();
