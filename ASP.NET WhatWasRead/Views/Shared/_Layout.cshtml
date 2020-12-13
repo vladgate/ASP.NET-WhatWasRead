@@ -23,8 +23,8 @@
         <div id="footer-menu">
             @Html.RouteLink("На главную", "Default")  |
             @Html.ActionLink("Добавить прочтенную книгу", "Create", "Books") |
-            @Html.ActionLink("Добавить автора", "Create", "Author") |
-            @Html.ActionLink("Добавить тег", "Create", "Tag")
+            @Html.ActionLink("Авторы", "Index", "Author") |
+            @Html.ActionLink("Теги", "Index", "Tag")
         </div>
     </div>
     @RenderSection("scripts", required: false)

@@ -116,8 +116,20 @@ namespace ASP.NET_WhatWasRead.Controllers
          {
             return HttpNotFound();
          }
-         _repository.RemoveTag(tag);
-         _repository.SaveChanges();
+         try
+         {
+            _repository.RemoveTag(tag);
+            _repository.SaveChanges();
+         }
+         catch (Exception ex) when (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("DELETE statement conflicted with the REFERENCE constraint"))
+         {
+            ViewBag.Error = "С данным тегом имеются книги, поэтому сейчас удалить его нельзя.";
+            return View(tag);
+         }
+         catch (Exception)
+         {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+         }
          return RedirectToAction("Index");
       }
 

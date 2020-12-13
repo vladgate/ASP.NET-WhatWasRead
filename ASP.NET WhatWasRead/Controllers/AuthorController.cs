@@ -3,6 +3,7 @@ using Domain.Concrete.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -112,8 +113,21 @@ namespace ASP.NET_WhatWasRead.Controllers
          {
             return HttpNotFound();
          }
-         _repository.RemoveAuthor(author);
-         _repository.SaveChanges();
+         try
+         {
+            _repository.RemoveAuthor(author);
+            _repository.SaveChanges();
+         }
+         catch (Exception ex) when (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("DELETE statement conflicted with the REFERENCE constraint"))
+         {
+            ViewBag.Error = "У даного автора имеются книги, поэтому сейчас удалить его нельзя.";
+            return View(author);
+         }
+
+         catch (Exception)
+         {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+         }
          return RedirectToAction("Index");
       }
 
